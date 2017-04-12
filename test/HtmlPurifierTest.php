@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare( strict_types=1 );
 
 namespace WMDE\Fundraising\HtmlFilter\Test;
 
@@ -20,15 +20,15 @@ class HtmlPurifierTest extends TestCase {
 
 	public function testReturnsOnlyAllowedTags(): void {
 		$this->assertSame(
-				'<h1>my test <em>site</em></h1>
+			'<h1>my test <em>site</em></h1>
 <p>lorem</p>
 <ul><li>item <strong>1</strong></li>
 </ul><img src="/logo.png" alt="wikimedia" />
 some<br />
 thing<br />
 new',
-				$this->sut->purify(
-						'<h1>my test <em>site</em></h1>
+			$this->sut->purify(
+				'<h1>my test <em>site</em></h1>
 <p>lorem</p>
 <ul>
     <li>item <strong>1</strong></li>
@@ -38,7 +38,7 @@ new',
 some<br>
 thing<br/>
 new'
-				)
+			)
 		);
 	}
 
