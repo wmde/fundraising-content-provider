@@ -35,5 +35,8 @@
         "phpcs": [
             "vendor/bin/phpcs src/ test/ --standard=phpcs.xml --extensions=php -sp"
         ]
-    }
+    },
+    "bin": [
+        "bin/twiglint"
+    ]
 }
