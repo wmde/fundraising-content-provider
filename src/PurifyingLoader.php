@@ -24,6 +24,18 @@ class PurifyingLoader implements Twig_LoaderInterface {
 		$this->purifier = $purifier;
 	}
 
+	/**
+	 * @tutorial Deprecated in twig since 1.27 but still part of the interface, so we need to delegate it
+	 *
+	 * @deprecated Use getSourceContext instead
+	 */
+	public function getSource($name)
+	{
+		$source = $this->originalLoader->getSource( $name );
+
+		return $this->purifier->purify( $source );
+	}
+
 	public function getSourceContext( $name ) {
 		$source = $this->originalLoader->getSourceContext( $name );
 		$code = $source->getCode();

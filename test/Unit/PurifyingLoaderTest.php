@@ -4,6 +4,7 @@ declare( strict_types=1 );
 
 namespace WMDE\Fundraising\HtmlFilter\Test\Unit;
 
+use Twig_Loader_Filesystem;
 use WMDE\Fundraising\HtmlFilter\PurifierInterface;
 use WMDE\Fundraising\HtmlFilter\PurifyingLoader;
 use PHPUnit\Framework\TestCase;
@@ -12,13 +13,13 @@ use Twig_Source;
 
 class PurifyingLoaderTest extends TestCase {
 
-	public function testGetSourceContextCallsOriginalLoader(): void {
+	public function testGetSourceCallsOriginalLoader(): void {
 		$originalLoader = $this->createMock( Twig_LoaderInterface::class );
 		$originalLoader
 			->expects( $this->once() )
-			->method( 'getSourceContext' )
+			->method( 'getSource' )
 			->with( 'greeting.twig' )
-			->willReturn( new Twig_Source( 'hello', 'greeting.twig' ) );
+			->willReturn( 'hello' );
 
 		$purifier = $this->createMock( PurifierInterface::class );
 		$purifier
@@ -30,12 +31,12 @@ class PurifyingLoaderTest extends TestCase {
 		$loader = new PurifyingLoader( $originalLoader, $purifier );
 
 		$this->assertEquals(
-			new Twig_Source( 'hello', 'greeting.twig' ),
-			$loader->getSourceContext( 'greeting.twig' )
+			'hello',
+			$loader->getSource( 'greeting.twig' )
 		);
 	}
 
-	public function testgetCacheKeyCallsOriginalLoader(): void {
+	public function testGetCacheKeyCallsOriginalLoader(): void {
 		$originalLoader = $this->createMock( Twig_LoaderInterface::class );
 		$originalLoader
 			->expects( $this->once() )
@@ -71,8 +72,37 @@ class PurifyingLoaderTest extends TestCase {
 		$this->assertTrue( $loader->isFresh( 'ezekiel', 2517 ) );
 	}
 
+	/**
+	 * @tutorial Using concrete loader's mock to test methods that are not hinted in LoaderInterface yet
+	 */
+	public function testGetSourceContextCallsOriginalLoader(): void {
+		$originalLoader = $this->createMock( Twig_Loader_Filesystem::class );
+		$originalLoader
+			->expects( $this->once() )
+			->method( 'getSourceContext' )
+			->with( 'greeting.twig' )
+			->willReturn( new Twig_Source( 'hello', 'greeting.twig' ) );
+
+		$purifier = $this->createMock( PurifierInterface::class );
+		$purifier
+			->expects( $this->once() )
+			->method( 'purify' )
+			->with( 'hello' )
+			->willReturn( 'hello' );
+
+		$loader = new PurifyingLoader( $originalLoader, $purifier );
+
+		$this->assertEquals(
+			new Twig_Source( 'hello', 'greeting.twig' ),
+			$loader->getSourceContext( 'greeting.twig' )
+		);
+	}
+
+	/**
+	 * @tutorial Using concrete loader's mock to test methods that are not hinted in LoaderInterface yet
+	 */
 	public function testExistsCallsOriginalLoader(): void {
-		$originalLoader = $this->createMock( Twig_LoaderInterface::class );
+		$originalLoader = $this->createMock( Twig_Loader_Filesystem::class );
 		$originalLoader
 			->expects( $this->once() )
 			->method( 'exists' )
