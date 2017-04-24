@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace WMDE\Fundraising\HtmlFilter\Test;
+namespace WMDE\Fundraising\HtmlFilter\Test\Integration;
 
 use WMDE\Fundraising\HtmlFilter\HtmlPurifier;
 use PHPUnit\Framework\TestCase;

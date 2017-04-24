@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace WMDE\Fundraising\HtmlFilter\Test;
+namespace WMDE\Fundraising\HtmlFilter\Test\Unit;
 
 use WMDE\Fundraising\HtmlFilter\PurifierInterface;
 use WMDE\Fundraising\HtmlFilter\PurifyingLoader;
