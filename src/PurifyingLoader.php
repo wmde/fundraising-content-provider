@@ -28,10 +28,10 @@ class PurifyingLoader implements Twig_LoaderInterface {
 		$source = $this->originalLoader->getSourceContext( $name );
 		$code = $source->getCode();
 
-		$code = $this->purifier->purify($code);
+		$code = $this->purifier->purify( $code );
 
 		// @todo Where do we get the 'path' (3rd param) from?, @see Twig_Loader_Filesystem
-		return new Twig_Source($code, $name);
+		return new Twig_Source( $code, $name );
 	}
 
 	public function getCacheKey( $name ) {
