@@ -20,6 +20,8 @@ class ContentProvider {
 		'tag_variable' => ['{$', '$}']
 	];
 
+	private const TEMPLATE_FILE_EXTENSION = '.twig';
+
 	/**
 	 * @var Twig_Environment
 	 */
@@ -101,7 +103,7 @@ class ContentProvider {
 
 	private function render( Twig_Environment $environment, string $name, array $context = [] ): string {
 		try {
-			$content = $environment->render( $name, $context );
+			$content = $environment->render( $name . self::TEMPLATE_FILE_EXTENSION, $context );
 		} catch ( Twig_Error $exception ) {
 			throw new ContentException( "An exception occured rendering '$name'", 0, $exception );
 		}

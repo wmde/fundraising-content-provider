@@ -15,13 +15,13 @@ class ContentProviderTest extends TestCase {
 	public function testTwigInstancesUseLexerConfig() {
 		$content = vfsStream::setup( 'content', null, [
 			'web' => [
-				'a' => 'a {$ variable $}{# comment not rendered #}'
+				'a.twig' => 'a {$ variable $}{# comment not rendered #}'
 			],
 			'mail' => [
-				'b' => 'b {$ variable $}{# comment not rendered #}'
+				'b.twig' => 'b {$ variable $}{# comment not rendered #}'
 			],
 			'shared' => [
-				'c' => 'c {$ variable $}{# comment not rendered #}'
+				'c.twig' => 'c {$ variable $}{# comment not rendered #}'
 			],
 		] );
 
@@ -39,16 +39,16 @@ class ContentProviderTest extends TestCase {
 	public function testFoldersLoadAndInRightOrder(): void {
 		$content = vfsStream::setup( 'content', null, [
 			'web' => [
-				'some_html' => '<div><p>lorem {$ variable $}.</p></div>',
-				'conflicting_name' => 'from web'
+				'some_html.twig' => '<div><p>lorem {$ variable $}.</p></div>',
+				'conflicting_name.twig' => 'from web'
 			],
 			'mail' => [
-				'some_plaintext' => '{$ variable $} <http://wikipedia.de>',
-				'conflicting_name' => 'from mail'
+				'some_plaintext.twig' => '{$ variable $} <http://wikipedia.de>',
+				'conflicting_name.twig' => 'from mail'
 			],
 			'shared' => [
-				'conflicting_name' => 'i should never be loaded',
-				'nonconflicting_name' => 'from shared'
+				'conflicting_name.twig' => 'i should never be loaded',
+				'nonconflicting_name.twig' => 'from shared'
 			],
 		] );
 
@@ -88,10 +88,10 @@ class ContentProviderTest extends TestCase {
 	public function testGlobalVariablesAvailableButLocalPrevails(): void {
 		$content = vfsStream::setup( 'content', null, [
 			'web' => [
-				'myhtml' => '{$ variable $}',
+				'myhtml.twig' => '{$ variable $}',
 			],
 			'mail' => [
-				'myplaintext' => '{$ variable $}',
+				'myplaintext.twig' => '{$ variable $}',
 			],
 			'shared' => [],
 		] );
