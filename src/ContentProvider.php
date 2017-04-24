@@ -105,7 +105,7 @@ class ContentProvider {
 		try {
 			$content = $environment->render( $name . self::TEMPLATE_FILE_EXTENSION, $context );
 		} catch ( Twig_Error $exception ) {
-			throw new ContentException( "An exception occured rendering '$name'", 0, $exception );
+			throw new ContentException( "An exception occurred rendering '$name'", 0, $exception );
 		}
 
 		return $content;

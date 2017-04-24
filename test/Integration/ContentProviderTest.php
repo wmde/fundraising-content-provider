@@ -6,9 +6,9 @@ namespace WMDE\Fundraising\HtmlFilter\Test\Integration;
 
 use WMDE\Fundraising\HtmlFilter\ContentException;
 use WMDE\Fundraising\HtmlFilter\ContentProvider;
-use PHPUnit\Framework\TestCase;
-use org\bovigo\vfs\vfsStream;
 use WMDE\Fundraising\HtmlFilter\SetupException;
+use org\bovigo\vfs\vfsStream;
+use PHPUnit\Framework\TestCase;
 
 class ContentProviderTest extends TestCase {
 
@@ -145,5 +145,24 @@ class ContentProviderTest extends TestCase {
 		] );
 
 		$provider->getMail('not_there');
+	}
+
+	public function testUnspecifiedVariableRendersBlank(): void {
+		$content = vfsStream::setup( 'content', null, [
+			'web' => [
+				'template_with_variable.twig' => 'prefix{$ variable $}suffix'
+			],
+			'mail' => [],
+			'shared' => [],
+		] );
+
+		$provider = new ContentProvider( [
+			'content_path' => $content->url()
+		] );
+
+		$this->assertSame(
+			'prefixsuffix',
+			$provider->getWeb('template_with_variable', ['some_other' => 'value'] )
+		);
 	}
 }
