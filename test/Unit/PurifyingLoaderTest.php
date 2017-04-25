@@ -73,7 +73,7 @@ class PurifyingLoaderTest extends TestCase {
 	}
 
 	/**
-	 * @tutorial Using concrete loader's mock to test methods that are not hinted in LoaderInterface yet
+	 * Using concrete loader's mock to test methods that are not hinted in LoaderInterface yet
 	 */
 	public function testGetSourceContextCallsOriginalLoader(): void {
 		$originalLoader = $this->createMock( Twig_Loader_Filesystem::class );
@@ -99,7 +99,7 @@ class PurifyingLoaderTest extends TestCase {
 	}
 
 	/**
-	 * @tutorial Using concrete loader's mock to test methods that are not hinted in LoaderInterface yet
+	 * Using concrete loader's mock to test methods that are not hinted in LoaderInterface yet
 	 */
 	public function testExistsCallsOriginalLoader(): void {
 		$originalLoader = $this->createMock( Twig_Loader_Filesystem::class );

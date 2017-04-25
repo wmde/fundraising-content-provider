@@ -25,7 +25,7 @@ class PurifyingLoader implements Twig_LoaderInterface {
 	}
 
 	/**
-	 * @tutorial Deprecated in twig since 1.27 but still part of the interface, so we need to delegate it
+	 * Deprecated in twig since 1.27 but still part of the interface, so we need to delegate it
 	 *
 	 * @deprecated Use getSourceContext instead
 	 */
