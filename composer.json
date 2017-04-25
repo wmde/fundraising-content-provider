@@ -1,14 +1,16 @@
 {
     "name": "wmde/fundraising-html-filter",
-    "description": "WMDE fundraising application content HTML filter",
+    "description": "WMDE fundraising application content provider and filter",
     "license": "GPL-2.0+",
     "require": {
         "php": ">=7.1",
-        "ezyang/htmlpurifier": "^4.9"
+        "ezyang/htmlpurifier": "^4.9",
+        "twig/twig": "~1.23"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.1",
-        "squizlabs/php_codesniffer": "^2.8"
+        "squizlabs/php_codesniffer": "^2.8",
+        "mikey179/vfsStream": "^1.6"
     },
     "autoload": {
         "psr-4": {
