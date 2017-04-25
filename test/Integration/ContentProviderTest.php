@@ -127,7 +127,7 @@ class ContentProviderTest extends TestCase {
 		new ContentProvider( ['content_path' => '/missing/link'] );
 	}
 
-	public function testUnfoundWebTemplateCausesContentException(): void {
+	public function testMissingWebTemplateCausesContentException(): void {
 		$this->expectException( ContentException::class );
 
 		$content = vfsStream::setup( 'content', null, [
@@ -143,7 +143,7 @@ class ContentProviderTest extends TestCase {
 		$provider->getWeb( 'not_there' );
 	}
 
-	public function testUnfoundMailTemplateCausesContentException(): void {
+	public function testMissingMailTemplateCausesContentException(): void {
 		$this->expectException( ContentException::class );
 
 		$content = vfsStream::setup( 'content', null, [
