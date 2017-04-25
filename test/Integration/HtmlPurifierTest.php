@@ -29,7 +29,8 @@ class HtmlPurifierTest extends TestCase {
 </ul><img src="/logo.png" alt="wikimedia" />
 some<br />
 thing<br />
-new',
+new
+<table class="bobby"><tr><td>1</td></tr></table>',
 			$this->sut->purify(
 				'<h1>my test <em>site</em></h1>
 <p>lorem</p>
@@ -40,7 +41,8 @@ new',
 <img src="/logo.png" alt="wikimedia" />
 some<br>
 thing<br/>
-new'
+new
+<table class="bobby"><tr><td>1</td></tr></table>'
 			)
 		);
 	}
