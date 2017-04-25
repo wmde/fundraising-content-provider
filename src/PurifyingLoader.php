@@ -42,7 +42,6 @@ class PurifyingLoader implements Twig_LoaderInterface {
 
 		$code = $this->purifier->purify( $code );
 
-		// @todo Where do we get the 'path' (3rd param) from?, @see Twig_Loader_Filesystem
 		return new Twig_Source( $code, $name );
 	}
 
