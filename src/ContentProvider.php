@@ -28,6 +28,13 @@ class ContentProvider {
 	private $web;
 
 	/**
+	 * @var Twig_Environment
+	 */
+	private $mail;
+
+	/**
+	 * Create a new instance
+	 *
 	 * Requires a configuration array in the following form
 	 *
 	 * new ContentProvider( [
@@ -39,10 +46,8 @@ class ContentProvider {
 	 *   ]
 	 * ] );
 	 *
-	 * @var Twig_Environment
+	 * @param array $config Configuration settings
 	 */
-	private $mail;
-
 	public function __construct( array $config ) {
 
 		$contentDir = $config['content_path'];
