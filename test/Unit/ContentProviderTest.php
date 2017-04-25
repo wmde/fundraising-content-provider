@@ -12,8 +12,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Poor man's unit tests in the absence of clean DI on ContentProvider
  *
- * Class ContentProviderTest
- * @package WMDE\Fundraising\HtmlFilter\Test\Unit
+ * @covers \WMDE\Fundraising\HtmlFilter\ContentProvider
  */
 class ContentProviderTest extends TestCase {
 

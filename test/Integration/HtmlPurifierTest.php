@@ -7,6 +7,9 @@ namespace WMDE\Fundraising\HtmlFilter\Test\Integration;
 use WMDE\Fundraising\HtmlFilter\HtmlPurifier;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \WMDE\Fundraising\HtmlFilter\HtmlPurifier
+ */
 class HtmlPurifierTest extends TestCase {
 
 	/**

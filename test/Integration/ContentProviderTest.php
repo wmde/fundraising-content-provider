@@ -10,6 +10,9 @@ use WMDE\Fundraising\HtmlFilter\SetupException;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \WMDE\Fundraising\HtmlFilter\ContentProvider
+ */
 class ContentProviderTest extends TestCase {
 
 	public function testTwigInstancesUseLexerConfig() {

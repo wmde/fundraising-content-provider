@@ -10,6 +10,9 @@ use PHPUnit\Framework\TestCase;
 use Twig_Loader_Array;
 use Twig_Source;
 
+/**
+ * @covers \WMDE\Fundraising\HtmlFilter\PurifyingLoader
+ */
 class PurifyingLoaderTest extends TestCase {
 
 	public function testIntegrateConcreteLoaderWithHtmlPurifier(): void {

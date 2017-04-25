@@ -11,6 +11,9 @@ use PHPUnit\Framework\TestCase;
 use Twig_LoaderInterface;
 use Twig_Source;
 
+/**
+ * @covers \WMDE\Fundraising\HtmlFilter\PurifyingLoader
+ */
 class PurifyingLoaderTest extends TestCase {
 
 	public function testGetSourceCallsOriginalLoader(): void {
