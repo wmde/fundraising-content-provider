@@ -103,20 +103,29 @@ class ContentProviderTest extends TestCase {
 			]
 		] );
 
-		$this->assertSame('globalvalue', $provider->getWeb( 'myhtml' ));
-		$this->assertSame('local', $provider->getWeb( 'myhtml', ['variable' => 'local'] ));
+		$this->assertSame( 'globalvalue', $provider->getWeb( 'myhtml' ) );
+		$this->assertSame( 'local', $provider->getWeb( 'myhtml', ['variable' => 'local'] ) );
 
-		$this->assertSame('globalvalue', $provider->getMail( 'myplaintext' ));
-		$this->assertSame('local', $provider->getMail( 'myplaintext', ['variable' => 'local'] ));
+		$this->assertSame( 'globalvalue', $provider->getMail( 'myplaintext' ) );
+		$this->assertSame( 'local', $provider->getMail( 'myplaintext', ['variable' => 'local'] ) );
+	}
+
+	public function testMissingContentPathSetupCausesNotice(): void {
+		$this->expectException( \PHPUnit\Framework\Error\Notice::class );
+		$this->expectExceptionMessageRegExp( '/Undefined index: content_path/' );
+
+		new ContentProvider( [] );
 	}
 
 	public function testBadSetupCausesSetupException(): void {
-		$this->expectException(SetupException::class);
-		new ContentProvider( [ ] );
+		$this->expectException( SetupException::class );
+		$this->expectExceptionMessageRegExp( '/An exception occurred setting up the ContentProvider./' );
+
+		new ContentProvider( ['content_path' => '/missing/link'] );
 	}
 
 	public function testUnfoundWebTemplateCausesContentException(): void {
-		$this->expectException(ContentException::class);
+		$this->expectException( ContentException::class );
 
 		$content = vfsStream::setup( 'content', null, [
 			'web' => [],
@@ -128,11 +137,11 @@ class ContentProviderTest extends TestCase {
 			'content_path' => $content->url()
 		] );
 
-		$provider->getWeb('not_there');
+		$provider->getWeb( 'not_there' );
 	}
 
 	public function testUnfoundMailTemplateCausesContentException(): void {
-		$this->expectException(ContentException::class);
+		$this->expectException( ContentException::class );
 
 		$content = vfsStream::setup( 'content', null, [
 			'web' => [],
@@ -144,7 +153,7 @@ class ContentProviderTest extends TestCase {
 			'content_path' => $content->url()
 		] );
 
-		$provider->getMail('not_there');
+		$provider->getMail( 'not_there' );
 	}
 
 	public function testUnspecifiedVariableRendersBlank(): void {
@@ -162,7 +171,7 @@ class ContentProviderTest extends TestCase {
 
 		$this->assertSame(
 			'prefixsuffix',
-			$provider->getWeb('template_with_variable', ['some_other' => 'value'] )
+			$provider->getWeb( 'template_with_variable', ['some_other' => 'value'] )
 		);
 	}
 }
