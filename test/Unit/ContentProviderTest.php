@@ -2,17 +2,17 @@
 
 declare( strict_types=1 );
 
-namespace WMDE\Fundraising\HtmlFilter\Test\Unit;
+namespace WMDE\Fundraising\ContentProvider\Test\Unit;
 
 use Twig_Environment;
-use WMDE\Fundraising\HtmlFilter\ContentProvider;
+use WMDE\Fundraising\ContentProvider\ContentProvider;
 use ReflectionClass;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Poor man's unit tests in the absence of clean DI on ContentProvider
  *
- * @covers \WMDE\Fundraising\HtmlFilter\ContentProvider
+ * @covers \WMDE\Fundraising\ContentProvider\ContentProvider
  */
 class ContentProviderTest extends TestCase {
 

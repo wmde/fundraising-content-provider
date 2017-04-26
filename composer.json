@@ -1,5 +1,5 @@
 {
-    "name": "wmde/fundraising-html-filter",
+    "name": "wmde/fundraising-content-provider",
     "description": "WMDE fundraising application content provider and filter",
     "license": "GPL-2.0+",
     "require": {
@@ -14,12 +14,12 @@
     },
     "autoload": {
         "psr-4": {
-            "WMDE\\Fundraising\\HtmlFilter\\": "src/"
+            "WMDE\\Fundraising\\ContentProvider\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "WMDE\\Fundraising\\HtmlFilter\\Test\\": "test/"
+            "WMDE\\Fundraising\\ContentProvider\\Test\\": "test/"
         }
     },
     "scripts": {

@@ -2,17 +2,17 @@
 
 declare( strict_types=1 );
 
-namespace WMDE\Fundraising\HtmlFilter\Test\Unit;
+namespace WMDE\Fundraising\ContentProvider\Test\Unit;
 
 use Twig_Loader_Filesystem;
-use WMDE\Fundraising\HtmlFilter\PurifierInterface;
-use WMDE\Fundraising\HtmlFilter\PurifyingLoader;
+use WMDE\Fundraising\ContentProvider\PurifierInterface;
+use WMDE\Fundraising\ContentProvider\PurifyingLoader;
 use PHPUnit\Framework\TestCase;
 use Twig_LoaderInterface;
 use Twig_Source;
 
 /**
- * @covers \WMDE\Fundraising\HtmlFilter\PurifyingLoader
+ * @covers \WMDE\Fundraising\ContentProvider\PurifyingLoader
  */
 class PurifyingLoaderTest extends TestCase {
 

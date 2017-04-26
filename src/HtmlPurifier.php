@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace WMDE\Fundraising\HtmlFilter;
+namespace WMDE\Fundraising\ContentProvider;
 
 use HTMLPurifier_Config;
 use HTMLPurifier as OriginalHTMLPurifier;
