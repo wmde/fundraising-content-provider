@@ -2,13 +2,13 @@
 
 declare( strict_types=1 );
 
-namespace WMDE\Fundraising\HtmlFilter\Test\Integration;
+namespace WMDE\Fundraising\ContentProvider\Test\Integration;
 
-use WMDE\Fundraising\HtmlFilter\HtmlPurifier;
+use WMDE\Fundraising\ContentProvider\HtmlPurifier;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \WMDE\Fundraising\HtmlFilter\HtmlPurifier
+ * @covers \WMDE\Fundraising\ContentProvider\HtmlPurifier
  */
 class HtmlPurifierTest extends TestCase {
 

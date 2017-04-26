@@ -2,9 +2,9 @@
 
 declare( strict_types=1 );
 
-namespace WMDE\Fundraising\HtmlFilter;
+namespace WMDE\Fundraising\ContentProvider;
 
-use WMDE\Fundraising\HtmlFilter\HtmlPurifier as FunHtmlPurifier;
+use WMDE\Fundraising\ContentProvider\HtmlPurifier as FunHtmlPurifier;
 
 class TwigLinter {
 

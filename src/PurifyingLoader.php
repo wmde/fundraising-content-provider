@@ -2,7 +2,7 @@
 
 declare( strict_types=1 );
 
-namespace WMDE\Fundraising\HtmlFilter;
+namespace WMDE\Fundraising\ContentProvider;
 
 use Twig_LoaderInterface;
 use Twig_Source;

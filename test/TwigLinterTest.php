@@ -2,10 +2,10 @@
 
 declare( strict_types=1 );
 
-namespace WMDE\Fundraising\HtmlFilter\Test;
+namespace WMDE\Fundraising\ContentProvider\Test;
 
 use PHPUnit\Framework\TestCase;
-use WMDE\Fundraising\HtmlFilter\TwigLinter;
+use WMDE\Fundraising\ContentProvider\TwigLinter;
 
 class TwigLinterTest extends TestCase {
 

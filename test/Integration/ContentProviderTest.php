@@ -2,16 +2,16 @@
 
 declare( strict_types=1 );
 
-namespace WMDE\Fundraising\HtmlFilter\Test\Integration;
+namespace WMDE\Fundraising\ContentProvider\Test\Integration;
 
-use WMDE\Fundraising\HtmlFilter\ContentException;
-use WMDE\Fundraising\HtmlFilter\ContentProvider;
-use WMDE\Fundraising\HtmlFilter\SetupException;
+use WMDE\Fundraising\ContentProvider\ContentException;
+use WMDE\Fundraising\ContentProvider\ContentProvider;
+use WMDE\Fundraising\ContentProvider\SetupException;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \WMDE\Fundraising\HtmlFilter\ContentProvider
+ * @covers \WMDE\Fundraising\ContentProvider\ContentProvider
  */
 class ContentProviderTest extends TestCase {
 
