@@ -20,10 +20,10 @@ class HtmlPurifier implements PurifierInterface {
 	private const ALLOWED_TAGS = '
 		h1,h2,h3,h4,h5,h6,
 		p,
-		br,
+		br,hr,
 		ul,ol,li,
-		span,b,i,strong,em,
-		a[href],
+		span,b,i,u,strong,em,
+		a[href|target],
 		img[src|alt],
 		table[class],thead,tbody,tr,th[scope],td[scope]
 	';
@@ -31,6 +31,7 @@ class HtmlPurifier implements PurifierInterface {
 	public function __construct() {
 		$config = HTMLPurifier_Config::createDefault();
 		$config->set( 'HTML.Allowed', self::ALLOWED_TAGS );
+		$config->set( 'Attr.AllowedFrameTargets', ['_blank'] ); // allow target="_blank" hrefs
 
 		$this->purifier = new OriginalHTMLPurifier( $config );
 	}

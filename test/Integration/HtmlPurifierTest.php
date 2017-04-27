@@ -21,18 +21,22 @@ class HtmlPurifierTest extends TestCase {
 		$this->sut = new HtmlPurifier();
 	}
 
-	public function testReturnsOnlyAllowedTags(): void {
+	public function testReturnsAllAllowedTags(): void {
 		$this->assertSame(
-			'<h1>my test <em>site</em></h1>
+			'<h1>my <u>test</u> <em>site</em></h1>
 <p>lorem</p>
 <ul><li>item <strong>1</strong></li>
 </ul><img src="/logo.png" alt="wikimedia" />
 some<br />
-thing<br />
+thing<br /><hr />
 new
-<table class="bobby"><tr><td>1</td></tr></table>',
+<table class="bobby"><tr><td>1</td></tr></table>
+dolor
+<a href="http://wikipedia.org" target="_blank" rel="noreferrer noopener">opening in new window, rel added by HtmlPurifier</a>
+amet
+<a href="http://wikimedia.de">ordinary link</a>',
 			$this->sut->purify(
-				'<h1>my test <em>site</em></h1>
+				'<h1>my <u>test</u> <em>site</em></h1>
 <p>lorem</p>
 <ul>
     <li>item <strong>1</strong></li>
@@ -40,9 +44,13 @@ new
 
 <img src="/logo.png" alt="wikimedia" />
 some<br>
-thing<br/>
+thing<br/><hr />
 new
-<table class="bobby"><tr><td>1</td></tr></table>'
+<table class="bobby"><tr><td>1</td></tr></table>
+dolor
+<a href="http://wikipedia.org" target="_blank">opening in new window, rel added by HtmlPurifier</a>
+amet
+<a href="http://wikimedia.de">ordinary link</a>'
 			)
 		);
 	}
