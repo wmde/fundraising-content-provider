@@ -39,6 +39,6 @@
         ]
     },
     "bin": [
-        "bin/twiglint"
+        "bin/purifier_lint"
     ]
 }

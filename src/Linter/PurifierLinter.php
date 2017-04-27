@@ -2,11 +2,11 @@
 
 declare( strict_types=1 );
 
-namespace WMDE\Fundraising\ContentProvider;
+namespace WMDE\Fundraising\ContentProvider\Linter;
 
 use WMDE\Fundraising\ContentProvider\HtmlPurifier as FunHtmlPurifier;
 
-class TwigLinter {
+class PurifierLinter {
 
 	private $exitWithError;
 
