@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare( strict_types=1 );
 
 namespace WMDE\Fundraising\ContentProvider\Test\Unit;
 
@@ -27,21 +27,20 @@ class ContentLinterTest extends TestCase {
 
 	}
 
-
 	public function testGivenNonexistingContent_errorIsReturned() {
-		$this->commandTester->execute( ['content-path' => __DIR__ . '/../data', 'content' => 'dummy' ] );
+		$this->commandTester->execute( ['content-path' => __DIR__ . '/../data', 'content' => 'dummy'] );
 		$this->assertSame( ContentLinter::EXIT_TWIG_ERROR, $this->commandTester->getStatusCode() );
 		$this->assertContains( 'Error validating Twig template: Unable to find', $this->commandTester->getDisplay() );
 	}
 
 	public function testGivenValidContent_commandExitsWithoutStatusCode() {
-		$this->commandTester->execute( ['content-path' => __DIR__ . '/../data', 'content' => 'ValidHtmlFile', '--web' => true ] );
+		$this->commandTester->execute( ['content-path' => __DIR__ . '/../data', 'content' => 'ValidHtmlFile', '--web' => true] );
 		$this->assertSame( ContentLinter::EXIT_OK, $this->commandTester->getStatusCode() );
 	}
 
 	public function testGivenValidContent_noOutputIsGeneratedAtDefaultVerbosity() {
 		$this->commandTester->execute(
-			['content-path' => __DIR__ . '/../data', 'content' => 'ValidHtmlFile', '--web' => true ],
+			['content-path' => __DIR__ . '/../data', 'content' => 'ValidHtmlFile', '--web' => true],
 			['verbosity' => OutputInterface::VERBOSITY_NORMAL]
 		);
 		$this->assertSame( '', $this->commandTester->getDisplay() );
@@ -49,7 +48,7 @@ class ContentLinterTest extends TestCase {
 
 	public function testGivenValidContent_outputIsGeneratedAtHighVerbosity() {
 		$this->commandTester->execute(
-			['content-path' => __DIR__ . '/../data', 'content' => 'ValidHtmlFile', '--web' => true ],
+			['content-path' => __DIR__ . '/../data', 'content' => 'ValidHtmlFile', '--web' => true],
 			['verbosity' => OutputInterface::VERBOSITY_VERBOSE]
 		);
 		$this->assertSame( "Validating ValidHtmlFile\n", $this->commandTester->getDisplay() );
@@ -57,7 +56,7 @@ class ContentLinterTest extends TestCase {
 
 	public function testGivenTwigFileWithSandboxedInstructions_errorIsReturned() {
 		$this->commandTester->execute(
-			['content-path' => __DIR__ . '/../data', 'content' => 'InvalidTwigInstructions' ]
+			['content-path' => __DIR__ . '/../data', 'content' => 'InvalidTwigInstructions']
 		);
 		$this->assertSame( ContentLinter::EXIT_TWIG_ERROR, $this->commandTester->getStatusCode() );
 		$this->assertContains(
@@ -68,7 +67,7 @@ class ContentLinterTest extends TestCase {
 
 	public function testGivenInvalidHtmlOutput_errorIsReturned() {
 		$this->commandTester->execute(
-			['content-path' => __DIR__ . '/../data', 'content' => 'InvalidHtmlFile', '--web' => true ]
+			['content-path' => __DIR__ . '/../data', 'content' => 'InvalidHtmlFile', '--web' => true]
 		);
 		$this->assertSame( ContentLinter::EXIT_HTML_ERROR, $this->commandTester->getStatusCode() );
 		$this->assertContains( 'Error validating HTML output', $this->commandTester->getDisplay() );
@@ -76,7 +75,7 @@ class ContentLinterTest extends TestCase {
 
 	public function testGivenValidHtmlOutput_okIsReturned() {
 		$this->commandTester->execute(
-			['content-path' => __DIR__ . '/../data', 'content' => 'ValidHtmlFile', '--web' => true ]
+			['content-path' => __DIR__ . '/../data', 'content' => 'ValidHtmlFile', '--web' => true]
 		);
 		$this->assertSame( ContentLinter::EXIT_OK, $this->commandTester->getStatusCode() );
 	}

@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare( strict_types=1 );
 
 namespace WMDE\Fundraising\ContentProvider\Linter;
 
@@ -36,8 +36,7 @@ class ContentLinter extends Command {
 				InputArgument::REQUIRED,
 				'Path to web, mail and shared directories'
 			)
-			->addArgument( 'content', InputArgument::REQUIRED, 'Name of content file' )
-		;
+			->addArgument( 'content', InputArgument::REQUIRED, 'Name of content file' );
 	}
 
 	protected function execute( InputInterface $input, OutputInterface $output ) {
@@ -68,8 +67,8 @@ class ContentLinter extends Command {
 		if ( $this->unifyHtml( $content ) !== $this->unifyHtml( $purifiedContent ) ) {
 			$errOutput->write(
 				'Error validating HTML output:' . PHP_EOL
-				. "\tOriginal: " .   $content . PHP_EOL
-				. "\tPurified: " .  $purifiedContent . PHP_EOL
+				. "\tOriginal: " . $content . PHP_EOL
+				. "\tPurified: " . $purifiedContent . PHP_EOL
 			);
 			return self::EXIT_HTML_ERROR;
 		}
@@ -81,6 +80,5 @@ class ContentLinter extends Command {
 		$html = str_replace( 'rel="noreferrer noopener"', '', $html );
 		return preg_replace( '/(\s+|\/)/', '', $html );
 	}
-
 
 }
