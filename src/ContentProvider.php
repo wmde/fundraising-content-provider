@@ -64,10 +64,7 @@ class ContentProvider {
 		try {
 
 			$this->web = new Twig_Environment(
-				new PurifyingLoader(
-					new Twig_Loader_Filesystem( [$contentDir . '/web', $contentDir . '/shared'] ),
-					new HtmlPurifier()
-				),
+				new Twig_Loader_Filesystem( [$contentDir . '/web', $contentDir . '/shared'] ),
 				$envConfig
 			);
 			$this->configureEnvironment( $this->web, $config );

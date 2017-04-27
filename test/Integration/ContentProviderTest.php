@@ -42,7 +42,7 @@ class ContentProviderTest extends TestCase {
 	public function testFoldersLoadAndInRightOrder(): void {
 		$content = vfsStream::setup( 'content', null, [
 			'web' => [
-				'some_html.twig' => '<div><p>lorem {$ variable $}.</p></div>',
+				'some_html.twig' => '<p>lorem {$ variable $}.</p>',
 				'conflicting_name.twig' => 'from web'
 			],
 			'mail' => [
@@ -175,6 +175,25 @@ class ContentProviderTest extends TestCase {
 		$this->assertSame(
 			'prefixsuffix',
 			$provider->getWeb( 'template_with_variable', ['some_other' => 'value'] )
+		);
+	}
+
+	public function testInWebTemplatesPurificationIsNotPerformed(): void {
+		$content = vfsStream::setup( 'content', null, [
+			'web' => [
+				'fancy_html.twig' => '<section><div>not purified!<brokentag></div></section>',
+			],
+			'mail' => [],
+			'shared' => [],
+		] );
+
+		$provider = new ContentProvider( [
+			'content_path' => $content->url(),
+		] );
+
+		$this->assertSame(
+			'<section><div>not purified!<brokentag></div></section>',
+			$provider->getWeb( 'fancy_html' )
 		);
 	}
 }
