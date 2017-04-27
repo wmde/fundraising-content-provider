@@ -14,6 +14,11 @@ before rendering it into [FundraisingFrontend](https://github.com/wmde/Fundraisi
     // contents of fundraising-frontend-content/mail & fundraising-frontend-content/shared
     $contentProvider->getMail('template_name');
 
+# Running lints
+
+    # looks more complicated than it is because of mounting local content dir into docker container
+    docker run -it --rm -v ~/projects/fundraising-frontend-content/i18n:/contentpath -v "$PWD":/usr/src/myapp -w /usr/src/myapp php:7.1-cli ./bin/purifier_lint lint-content /contentpath/de_DE --web pages/imprint
+
 # Development
 
 ## Run phpunit tests
