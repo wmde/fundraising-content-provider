@@ -85,6 +85,7 @@ class ContentProvider {
 	 * @param string $name The template name
 	 * @param array $context An array of parameters to pass to the template
 	 *
+	 * @throws ContentException
 	 * @return string
 	 */
 	public function getWeb( string $name, array $context = [] ): string {
@@ -97,6 +98,7 @@ class ContentProvider {
 	 * @param string $name The template name
 	 * @param array $context An array of parameters to pass to the template
 	 *
+	 * @throws ContentException
 	 * @return string
 	 */
 	public function getMail( string $name, array $context = [] ): string {
