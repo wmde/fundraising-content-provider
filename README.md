@@ -29,3 +29,17 @@ before rendering it into [FundraisingFrontend](https://github.com/wmde/Fundraisi
     docker run -it --rm --user $(id -u):$(id -g) -v "$PWD":/app -w /app php:7.1-cli ./vendor/bin/phpunit
     
 (you have to have docker installed for this to work)
+
+# Release notes
+
+## Version 2.0 (2017-04-28)
+
+* Content is no longer purified when loading it (purifying broke twig templates)
+* renamed linter & added twig syntax checks
+* Also allowing the following HTML tags: `hr`, `u`
+* Also allowing `target="_blank"` attribute links (`a`)
+
+## Version 1.0 (2017-04-26)
+
+* Initial Release
+* Providing a service that loads and purifies (some paths) templates, returns content
