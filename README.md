@@ -16,8 +16,11 @@ before rendering it into [FundraisingFrontend](https://github.com/wmde/Fundraisi
 
 # Running lints
 
-    # looks more complicated than it is because of mounting local content dir into docker container
-    docker run -it --rm -v ~/projects/fundraising-frontend-content/i18n:/contentpath -v "$PWD":/usr/src/myapp -w /usr/src/myapp php:7.1-cli ./bin/purifier_lint lint-content /contentpath/de_DE --web pages/imprint
+    # When installed as a dependency and PHP is available:
+    vendor/bin/lint_content /contentpath/de_DE --web pages/imprint
+
+    # running in a docker container
+    docker run -it --rm -v ~/projects/fundraising-frontend-content/i18n:/contentpath -v "$PWD":/usr/src/myapp -w /usr/src/myapp php:7.1-cli ./bin/lint_content /contentpath/de_DE --web pages/imprint
 
 # Development
 

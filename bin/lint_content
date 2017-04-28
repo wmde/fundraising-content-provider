@@ -13,6 +13,7 @@ use Symfony\Component\Console\Application;
 
 $application = new Application();
 
-$application->add( new \WMDE\Fundraising\ContentProvider\Linter\ContentLinter() );
+$application->add( new \WMDE\Fundraising\ContentProvider\ContentLinter() );
+$application->setDefaultCommand( \WMDE\Fundraising\ContentProvider\ContentLinter::NAME, true );
 
 $application->run();
