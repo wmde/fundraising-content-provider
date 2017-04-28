@@ -20,6 +20,16 @@ class ContentLinter extends Command {
 	const EXIT_TWIG_ERROR = 1;
 	const EXIT_HTML_ERROR = 2;
 
+	/**
+	 * @var ContentProvider
+	 */
+	private $contentProvider;
+
+	/**
+	 * @var OutputInterface
+	 */
+	private $errOutput;
+
 	protected function configure() {
 		$this->setName( self::NAME )
 			->setDescription( 'Check content for validity' )
@@ -37,41 +47,67 @@ class ContentLinter extends Command {
 			->addArgument( 'content', InputArgument::REQUIRED, 'Name of content file' );
 	}
 
-	protected function execute( InputInterface $input, OutputInterface $output ) {
+	protected function initialize( InputInterface $input, OutputInterface $output ) {
+		$this->contentProvider = new ContentProvider( ['content_path' => $input->getArgument( 'content-path' )] );
+		$this->errOutput = $output instanceof ConsoleOutputInterface ? $output->getErrorOutput() : $output;
+	}
 
-		$contentPath = $input->getArgument( 'content-path' );
-		$contentProvider = new ContentProvider( ['content_path' => $contentPath] );
+
+	protected function execute( InputInterface $input, OutputInterface $output ) {
 		$contentName = $input->getArgument( 'content' );
 
-		$errOutput = $output instanceof ConsoleOutputInterface ? $output->getErrorOutput() : $output;
+		if ( $input->getOption( 'web' ) ) {
+			$returnCode = $this->lintWeb( $contentName );
+		} else {
+			$returnCode = $this->lintMail( $contentName );
+		}
 
-		$method = $input->getOption( 'web' ) ? 'getWeb' : 'getMail';
+		if ( $returnCode === self::EXIT_OK ) {
+			$output->writeln( sprintf( '%-50s <info>OK</info>', $contentName ), Output::VERBOSITY_VERBOSE );
+		}
+
+		return $returnCode;
+	}
+
+	private function lintWeb( string $contentName ): int {
 		try {
-			$content = $contentProvider->$method( $contentName );
+			$content = $this->contentProvider->getWeb( $contentName );
 		} catch ( ContentException $e ) {
-			$errOutput->writeln( "<error>[Error]</error> Could not validate Twig template for '$contentName'" );
-			$errOutput->writeln( $e->getPrevious()->getMessage() );
+			$this->showTwigErrorMessage( $contentName, $e->getPrevious()->getMessage() );
 			return self::EXIT_TWIG_ERROR;
 		}
 
-		if ( $method !== 'getWeb' ) {
-			$output->writeln( sprintf( '%-50s <info>OK</info>', $contentName ), Output::VERBOSITY_VERBOSE );
-			return self::EXIT_OK;
-		}
-
 		$purifier = new FunHtmlPurifier();
-
 		$purifiedContent = $purifier->purify( $content );
 
 		if ( $this->unifyHtml( $content ) !== $this->unifyHtml( $purifiedContent ) ) {
-			$errOutput->writeln( "<error>[Error]</error> Invalid HTML in '$contentName'</error>" );
-			$errOutput->writeln( "\tOriginal: " . $content );
-			$errOutput->writeln( "\tPurified: " . $purifiedContent );
+			$this->showInvalidHtmlErrorMessage( $contentName, $content, $purifiedContent);
 			return self::EXIT_HTML_ERROR;
 		}
 
-		$output->writeln( sprintf( '%-50s <info>[OK]</info>', $contentName ), Output::VERBOSITY_VERBOSE );
 		return self::EXIT_OK;
+	}
+
+	private function lintMail( string $contentName ): int {
+		try {
+			$this->contentProvider->getMail( $contentName );
+		} catch ( ContentException $e ) {
+			$this->showTwigErrorMessage( $contentName, $e->getPrevious()->getMessage() );
+			return self::EXIT_TWIG_ERROR;
+		}
+
+		return self::EXIT_OK;
+	}
+
+	private function showTwigErrorMessage( string $contentName, string $twigMessage ): void {
+		$this->errOutput->writeln( "<error>[Error]</error> Could not validate Twig template for '$contentName'" );
+		$this->errOutput->writeln( $twigMessage );
+	}
+
+	private function showInvalidHtmlErrorMessage( string $contentName, string $content, string $purifiedContent ): void {
+		$this->errOutput->writeln( "<error>[Error]</error> Invalid HTML in '$contentName'</error>" );
+		$this->errOutput->writeln( "\tOriginal: " . $content );
+		$this->errOutput->writeln( "\tFiltered: " . $purifiedContent );
 	}
 
 	private function unifyHtml( string $html ): string {
