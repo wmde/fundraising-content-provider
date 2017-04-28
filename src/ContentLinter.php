@@ -42,7 +42,6 @@ class ContentLinter extends Command {
 		$contentPath = $input->getArgument( 'content-path' );
 		$contentProvider = new ContentProvider( ['content_path' => $contentPath] );
 		$contentName = $input->getArgument( 'content' );
-		$output->writeln( "Validating $contentName", Output::VERBOSITY_VERBOSE );
 
 		$errOutput = $output instanceof ConsoleOutputInterface ? $output->getErrorOutput() : $output;
 
@@ -50,11 +49,13 @@ class ContentLinter extends Command {
 		try {
 			$content = $contentProvider->$method( $contentName );
 		} catch ( ContentException $e ) {
-			$errOutput->writeln( 'Error validating Twig template: ' . $e->getPrevious()->getMessage() );
+			$errOutput->writeln( "<error>[Error]</error> Could not validate Twig template for '$contentName'" );
+			$errOutput->writeln( $e->getPrevious()->getMessage() );
 			return self::EXIT_TWIG_ERROR;
 		}
 
 		if ( $method !== 'getWeb' ) {
+			$output->writeln( sprintf( '%-50s <info>OK</info>', $contentName ), Output::VERBOSITY_VERBOSE );
 			return self::EXIT_OK;
 		}
 
@@ -63,14 +64,13 @@ class ContentLinter extends Command {
 		$purifiedContent = $purifier->purify( $content );
 
 		if ( $this->unifyHtml( $content ) !== $this->unifyHtml( $purifiedContent ) ) {
-			$errOutput->write(
-				'Error validating HTML output:' . PHP_EOL
-				. "\tOriginal: " . $content . PHP_EOL
-				. "\tPurified: " . $purifiedContent . PHP_EOL
-			);
+			$errOutput->writeln( "<error>[Error]</error> Invalid HTML in '$contentName'</error>" );
+			$errOutput->writeln( "\tOriginal: " . $content );
+			$errOutput->writeln( "\tPurified: " . $purifiedContent );
 			return self::EXIT_HTML_ERROR;
 		}
 
+		$output->writeln( sprintf( '%-50s <info>[OK]</info>', $contentName ), Output::VERBOSITY_VERBOSE );
 		return self::EXIT_OK;
 	}
 

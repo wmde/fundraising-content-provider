@@ -30,7 +30,7 @@ class ContentLinterTest extends TestCase {
 	public function testGivenNonexistingContent_errorIsReturned() {
 		$this->commandTester->execute( ['content-path' => __DIR__ . '/../data', 'content' => 'dummy'] );
 		$this->assertSame( ContentLinter::EXIT_TWIG_ERROR, $this->commandTester->getStatusCode() );
-		$this->assertContains( 'Error validating Twig template: Unable to find', $this->commandTester->getDisplay() );
+		$this->assertRegExp( '/Error.*Unable to find/s', $this->commandTester->getDisplay() );
 	}
 
 	public function testGivenValidContent_commandExitsWithoutStatusCode() {
@@ -51,7 +51,7 @@ class ContentLinterTest extends TestCase {
 			['content-path' => __DIR__ . '/../data', 'content' => 'ValidHtmlFile', '--web' => true],
 			['verbosity' => OutputInterface::VERBOSITY_VERBOSE]
 		);
-		$this->assertSame( "Validating ValidHtmlFile\n", $this->commandTester->getDisplay() );
+		$this->assertRegExp( '/ValidHtmlFile.*OK/', $this->commandTester->getDisplay() );
 	}
 
 	public function testGivenTwigFileWithSandboxedInstructions_errorIsReturned() {
@@ -59,10 +59,7 @@ class ContentLinterTest extends TestCase {
 			['content-path' => __DIR__ . '/../data', 'content' => 'InvalidTwigInstructions']
 		);
 		$this->assertSame( ContentLinter::EXIT_TWIG_ERROR, $this->commandTester->getStatusCode() );
-		$this->assertContains(
-			'Error validating Twig template: Tag "if" is not allowed.',
-			$this->commandTester->getDisplay()
-		);
+		$this->assertRegExp( '/Error.*Tag "if" is not allowed/s', $this->commandTester->getDisplay() );
 	}
 
 	public function testGivenInvalidHtmlOutput_errorIsReturned() {
@@ -70,7 +67,7 @@ class ContentLinterTest extends TestCase {
 			['content-path' => __DIR__ . '/../data', 'content' => 'InvalidHtmlFile', '--web' => true]
 		);
 		$this->assertSame( ContentLinter::EXIT_HTML_ERROR, $this->commandTester->getStatusCode() );
-		$this->assertContains( 'Error validating HTML output', $this->commandTester->getDisplay() );
+		$this->assertRegExp( '/Error.* Invalid HTML/s', $this->commandTester->getDisplay() );
 	}
 
 	public function testGivenValidHtmlOutput_okIsReturned() {
