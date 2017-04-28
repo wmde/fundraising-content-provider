@@ -40,6 +40,6 @@
         ]
     },
     "bin": [
-        "bin/purifier_lint"
+        "bin/lint_content"
     ]
 }
