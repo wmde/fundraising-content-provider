@@ -1,7 +1,7 @@
 <?php
 declare( strict_types=1 );
 
-namespace WMDE\Fundraising\ContentProvider\Linter;
+namespace WMDE\Fundraising\ContentProvider;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -10,8 +10,6 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Output\OutputInterface;
-use WMDE\Fundraising\ContentProvider\ContentException;
-use WMDE\Fundraising\ContentProvider\ContentProvider;
 use WMDE\Fundraising\ContentProvider\HtmlPurifier as FunHtmlPurifier;
 
 class ContentLinter extends Command {
