@@ -7,7 +7,7 @@ namespace WMDE\Fundraising\ContentProvider;
 use HTMLPurifier_Config;
 use HTMLPurifier as OriginalHTMLPurifier;
 
-class HtmlPurifier implements PurifierInterface {
+class HtmlPurifier {
 
 	/**
 	 * @var OriginalHTMLPurifier
