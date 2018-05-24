@@ -25,7 +25,8 @@ class HtmlPurifier {
 		span,b,i,u,strong,em,
 		a[href|target],
 		img[src|alt],
-		table[class],thead,tbody,tr,th[scope],td[scope]
+		table[class],thead,tbody,tr,th[scope],td[scope],
+		iframe
 	';
 
 	public function __construct() {
@@ -33,6 +34,10 @@ class HtmlPurifier {
 		$config->set( 'HTML.Allowed', self::ALLOWED_TAGS );
 		$config->set( 'Attr.AllowedFrameTargets', ['_blank'] ); // allow target="_blank" hrefs
 
+		/* iframes are not supported by HTMLPurifier out of the box and have to be manually added. */
+		/* @See 'Add an element' section at http://htmlpurifier.org/docs/enduser-customize.html */
+		$definition = $config->getHTMLDefinition(true);
+		$definition->addElement('iframe', 'Block', 'Flow', 'Core');
 		$this->purifier = new OriginalHTMLPurifier( $config );
 	}
 
