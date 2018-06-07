@@ -31,7 +31,9 @@ class HtmlPurifier {
 	public function __construct() {
 		$config = HTMLPurifier_Config::createDefault();
 		$config->set( 'HTML.Allowed', self::ALLOWED_TAGS );
-		$config->set( 'Attr.AllowedFrameTargets', ['_blank'] ); // allow target="_blank" hrefs
+		$config->set( 'Attr.AllowedFrameTargets', ['_blank'] );
+		/** Allow comments for JS placeholders ("placeholder_SOMEKEYWORD") */
+		$config->set( 'HTML.AllowedCommentsRegexp', '/^(placeholder_)(\w+)+/' );
 
 		$this->purifier = new OriginalHTMLPurifier( $config );
 	}

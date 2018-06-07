@@ -34,6 +34,8 @@ new
 dolor
 <a href="http://wikipedia.org" target="_blank" rel="noreferrer noopener">opening in new window, rel added by HtmlPurifier</a>
 amet
+<!-- placeholder_SOMEKEYWORD -->
+
 <a href="http://wikimedia.de">ordinary link</a>',
 			$this->sut->purify(
 				'<h1>my <u>test</u> <em>site</em></h1>
@@ -50,6 +52,8 @@ new
 dolor
 <a href="http://wikipedia.org" target="_blank">opening in new window, rel added by HtmlPurifier</a>
 amet
+<!-- placeholder_SOMEKEYWORD -->
+<!-- This comment must be stripped -->
 <a href="http://wikimedia.de">ordinary link</a>'
 			)
 		);
