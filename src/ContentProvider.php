@@ -5,6 +5,7 @@ declare( strict_types=1 );
 namespace WMDE\Fundraising\ContentProvider;
 
 use Exception;
+use Tomodomo\Twig\Pluralize;
 use Twig_Environment;
 use Twig_Error;
 use Twig_Extension_Sandbox;
@@ -121,13 +122,15 @@ class ContentProvider {
 		}
 
 		$policy = new Twig_Sandbox_SecurityPolicy(
-			['filter', 'include'],
-			['nl2br', 'escape'],
+			[ 'filter', 'include' ],
+			[ 'nl2br', 'escape', 'length', 'date' ],
 			[],
 			[],
-			[]
+			[ 'pluralize' ]
 		);
+
 		$environment->addExtension( new Twig_Extension_Sandbox( $policy, true ) );
+		$environment->addExtension( new Pluralize() );
 
 		$environment->setLexer( new Twig_Lexer( $environment, self::LEXER_CONFIG ) );
 	}
