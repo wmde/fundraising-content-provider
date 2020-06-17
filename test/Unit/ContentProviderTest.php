@@ -16,6 +16,16 @@ use PHPUnit\Framework\TestCase;
  */
 class ContentProviderTest extends TestCase {
 
+	public function testParsePluralizeReturnsCorrectValue(): void {
+		$contentProvider = new ContentProvider( [ 'content_path' => __DIR__ . '/../data' ] );
+
+		$this->assertEquals( 'None', $contentProvider->getWeb('PluralizeFile', [ 'count' => 0 ] ));
+		$this->assertEquals( 'One', $contentProvider->getWeb('PluralizeFile', [ 'count' => 1 ] ));
+		$this->assertEquals( 'Many', $contentProvider->getWeb('PluralizeFile', [ 'count' => 9 ] ));
+		$this->assertEquals( 'None', $contentProvider->getWeb('PluralizeFile', [ 'count' => null ] ));
+		$this->assertEquals( 'None', $contentProvider->getWeb( 'PluralizeFile', [ 'count' => false ] ));
+	}
+
 	public function testGetWebDelegatesToWebTwig(): void {
 		$provider = new ReflectionClass( ContentProvider::class );
 		/**
