@@ -5,7 +5,7 @@ declare( strict_types=1 );
 namespace WMDE\Fundraising\ContentProvider;
 
 use Exception;
-use Tomodomo\Twig\Pluralize;
+use Twig\TwigFunction;
 use Twig_Environment;
 use Twig_Error;
 use Twig_Extension_Sandbox;
@@ -130,7 +130,23 @@ class ContentProvider {
 		);
 
 		$environment->addExtension( new Twig_Extension_Sandbox( $policy, true ) );
-		$environment->addExtension( new Pluralize() );
+
+		$environment->addFunction( new TwigFunction( 'pluralize', function ( $count, $one, $many, $none = null ): string {
+			if( !$count ) {
+				$count = 0;
+			}
+
+			$none = $none ?? $many;
+
+			switch($count) {
+				case 0:
+					return $none;
+				case 1:
+					return $one;
+				default:
+					return $many;
+			}
+		} ) );
 
 		$environment->setLexer( new Twig_Lexer( $environment, self::LEXER_CONFIG ) );
 	}
