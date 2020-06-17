@@ -114,15 +114,15 @@ class ContentProviderTest extends TestCase {
 	}
 
 	public function testMissingContentPathSetupCausesNotice(): void {
-		$this->expectException( \PHPUnit\Framework\Error\Notice::class );
-		$this->expectExceptionMessageRegExp( '/Undefined index: content_path/' );
+		$this->expectNotice();
+		$this->expectExceptionMessageMatches( '/Undefined index: content_path/' );
 
 		new ContentProvider( [] );
 	}
 
 	public function testBadSetupCausesSetupException(): void {
 		$this->expectException( SetupException::class );
-		$this->expectExceptionMessageRegExp( '/An exception occurred setting up the ContentProvider./' );
+		$this->expectExceptionMessageMatches( '/An exception occurred setting up the ContentProvider./' );
 
 		new ContentProvider( ['content_path' => '/missing/link'] );
 	}

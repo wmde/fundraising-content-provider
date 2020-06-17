@@ -10,7 +10,7 @@
         "tomodomo/twig-pluralize-extension": "^2.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.1",
+        "phpunit/phpunit": "~8.0",
         "squizlabs/php_codesniffer": "^2.8",
         "mikey179/vfsstream": "^1.6"
     },
