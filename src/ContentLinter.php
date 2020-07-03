@@ -14,11 +14,11 @@ use WMDE\Fundraising\ContentProvider\HtmlPurifier as FunHtmlPurifier;
 
 class ContentLinter extends Command {
 
-	const NAME = 'lint-content';
+	public const NAME = 'lint-content';
 
-	const EXIT_OK = 0;
-	const EXIT_TWIG_ERROR = 1;
-	const EXIT_HTML_ERROR = 2;
+	public const EXIT_OK = 0;
+	public const EXIT_TWIG_ERROR = 1;
+	public const EXIT_HTML_ERROR = 2;
 
 	/**
 	 * @var ContentProvider
