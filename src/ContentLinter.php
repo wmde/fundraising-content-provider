@@ -48,10 +48,9 @@ class ContentLinter extends Command {
 	}
 
 	protected function initialize( InputInterface $input, OutputInterface $output ) {
-		$this->contentProvider = new ContentProvider( ['content_path' => $input->getArgument( 'content-path' )] );
+		$this->contentProvider = new ContentProvider( [ 'content_path' => $input->getArgument( 'content-path' ) ] );
 		$this->errOutput = $output instanceof ConsoleOutputInterface ? $output->getErrorOutput() : $output;
 	}
-
 
 	protected function execute( InputInterface $input, OutputInterface $output ) {
 		$contentName = $input->getArgument( 'content' );
@@ -81,7 +80,7 @@ class ContentLinter extends Command {
 		$purifiedContent = $purifier->purify( $content );
 
 		if ( $this->unifyHtml( $content ) !== $this->unifyHtml( $purifiedContent ) ) {
-			$this->showInvalidHtmlErrorMessage( $contentName, $content, $purifiedContent);
+			$this->showInvalidHtmlErrorMessage( $contentName, $content, $purifiedContent );
 			return self::EXIT_HTML_ERROR;
 		}
 

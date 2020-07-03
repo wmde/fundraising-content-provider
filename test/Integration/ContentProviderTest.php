@@ -4,11 +4,11 @@ declare( strict_types=1 );
 
 namespace WMDE\Fundraising\ContentProvider\Test\Integration;
 
+use org\bovigo\vfs\vfsStream;
+use PHPUnit\Framework\TestCase;
 use WMDE\Fundraising\ContentProvider\ContentException;
 use WMDE\Fundraising\ContentProvider\ContentProvider;
 use WMDE\Fundraising\ContentProvider\SetupException;
-use org\bovigo\vfs\vfsStream;
-use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \WMDE\Fundraising\ContentProvider\ContentProvider
@@ -32,11 +32,11 @@ class ContentProviderTest extends TestCase {
 			'content_path' => $content->url(),
 		] );
 
-		$this->assertSame( 'a lorem', $provider->getWeb( 'a', ['variable' => 'lorem'] ) );
-		$this->assertSame( 'c ipsum', $provider->getWeb( 'c', ['variable' => 'ipsum'] ) );
+		$this->assertSame( 'a lorem', $provider->getWeb( 'a', [ 'variable' => 'lorem' ] ) );
+		$this->assertSame( 'c ipsum', $provider->getWeb( 'c', [ 'variable' => 'ipsum' ] ) );
 
-		$this->assertSame( 'b lorem', $provider->getMail( 'b', ['variable' => 'lorem'] ) );
-		$this->assertSame( 'c amet', $provider->getMail( 'c', ['variable' => 'amet'] ) );
+		$this->assertSame( 'b lorem', $provider->getMail( 'b', [ 'variable' => 'lorem' ] ) );
+		$this->assertSame( 'c amet', $provider->getMail( 'c', [ 'variable' => 'amet' ] ) );
 	}
 
 	public function testFoldersLoadAndInRightOrder(): void {
@@ -61,7 +61,7 @@ class ContentProviderTest extends TestCase {
 
 		$this->assertSame(
 			'<p>lorem one.</p>',
-			$provider->getWeb( 'some_html', ['variable' => 'one'] )
+			$provider->getWeb( 'some_html', [ 'variable' => 'one' ] )
 		);
 		$this->assertSame(
 			'from web',
@@ -75,7 +75,7 @@ class ContentProviderTest extends TestCase {
 
 		$this->assertSame(
 			'two <http://wikipedia.de>',
-			$provider->getMail( 'some_plaintext', ['variable' => 'two'] )
+			$provider->getMail( 'some_plaintext', [ 'variable' => 'two' ] )
 		);
 		$this->assertSame(
 			'from mail',
@@ -107,10 +107,10 @@ class ContentProviderTest extends TestCase {
 		] );
 
 		$this->assertSame( 'globalvalue', $provider->getWeb( 'myhtml' ) );
-		$this->assertSame( 'local', $provider->getWeb( 'myhtml', ['variable' => 'local'] ) );
+		$this->assertSame( 'local', $provider->getWeb( 'myhtml', [ 'variable' => 'local' ] ) );
 
 		$this->assertSame( 'globalvalue', $provider->getMail( 'myplaintext' ) );
-		$this->assertSame( 'local', $provider->getMail( 'myplaintext', ['variable' => 'local'] ) );
+		$this->assertSame( 'local', $provider->getMail( 'myplaintext', [ 'variable' => 'local' ] ) );
 	}
 
 	public function testMissingContentPathSetupCausesNotice(): void {
@@ -124,7 +124,7 @@ class ContentProviderTest extends TestCase {
 		$this->expectException( SetupException::class );
 		$this->expectExceptionMessageMatches( '/An exception occurred setting up the ContentProvider./' );
 
-		new ContentProvider( ['content_path' => '/missing/link'] );
+		new ContentProvider( [ 'content_path' => '/missing/link' ] );
 	}
 
 	public function testMissingWebTemplateCausesContentException(): void {
@@ -174,7 +174,7 @@ class ContentProviderTest extends TestCase {
 
 		$this->assertSame(
 			'prefixsuffix',
-			$provider->getWeb( 'template_with_variable', ['some_other' => 'value'] )
+			$provider->getWeb( 'template_with_variable', [ 'some_other' => 'value' ] )
 		);
 	}
 

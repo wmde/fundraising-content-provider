@@ -4,8 +4,8 @@ declare( strict_types=1 );
 
 namespace WMDE\Fundraising\ContentProvider\Test\Integration;
 
-use WMDE\Fundraising\ContentProvider\HtmlPurifier;
 use PHPUnit\Framework\TestCase;
+use WMDE\Fundraising\ContentProvider\HtmlPurifier;
 
 /**
  * @covers \WMDE\Fundraising\ContentProvider\HtmlPurifier
