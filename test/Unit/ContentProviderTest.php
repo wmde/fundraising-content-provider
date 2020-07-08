@@ -4,10 +4,10 @@ declare( strict_types=1 );
 
 namespace WMDE\Fundraising\ContentProvider\Test\Unit;
 
+use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 use Twig_Environment;
 use WMDE\Fundraising\ContentProvider\ContentProvider;
-use ReflectionClass;
-use PHPUnit\Framework\TestCase;
 
 /**
  * Poor man's unit tests in the absence of clean DI on ContentProvider
@@ -19,11 +19,11 @@ class ContentProviderTest extends TestCase {
 	public function testParsePluralizeReturnsCorrectValue(): void {
 		$contentProvider = new ContentProvider( [ 'content_path' => __DIR__ . '/../data' ] );
 
-		$this->assertEquals( 'None', $contentProvider->getWeb('PluralizeFile', [ 'count' => 0 ] ));
-		$this->assertEquals( 'One', $contentProvider->getWeb('PluralizeFile', [ 'count' => 1 ] ));
-		$this->assertEquals( 'Many', $contentProvider->getWeb('PluralizeFile', [ 'count' => 9 ] ));
-		$this->assertEquals( 'None', $contentProvider->getWeb('PluralizeFile', [ 'count' => null ] ));
-		$this->assertEquals( 'None', $contentProvider->getWeb( 'PluralizeFile', [ 'count' => false ] ));
+		$this->assertEquals( 'None', $contentProvider->getWeb( 'PluralizeFile', [ 'count' => 0 ] ) );
+		$this->assertEquals( 'One', $contentProvider->getWeb( 'PluralizeFile', [ 'count' => 1 ] ) );
+		$this->assertEquals( 'Many', $contentProvider->getWeb( 'PluralizeFile', [ 'count' => 9 ] ) );
+		$this->assertEquals( 'None', $contentProvider->getWeb( 'PluralizeFile', [ 'count' => null ] ) );
+		$this->assertEquals( 'None', $contentProvider->getWeb( 'PluralizeFile', [ 'count' => false ] ) );
 	}
 
 	public function testGetWebDelegatesToWebTwig(): void {
@@ -33,17 +33,17 @@ class ContentProviderTest extends TestCase {
 		 */
 		$instance = $provider->newInstanceWithoutConstructor();
 
-		$webTwig = $this->createMock( Twig_Environment::class);
-		$webTwig->expects($this->once())
-			->method('render')
-			->with('lorem.twig', [ 'a' => 'b' ])
-			->willReturn('a thing');
+		$webTwig = $this->createMock( Twig_Environment::class );
+		$webTwig->expects( $this->once() )
+			->method( 'render' )
+			->with( 'lorem.twig', [ 'a' => 'b' ] )
+			->willReturn( 'a thing' );
 
 		$web = $provider->getProperty( 'web' );
 		$web->setAccessible( true );
-		$web->setValue($instance, $webTwig);
+		$web->setValue( $instance, $webTwig );
 
-		$this->assertSame('a thing', $instance->getWeb('lorem', [ 'a' => 'b' ]));
+		$this->assertSame( 'a thing', $instance->getWeb( 'lorem', [ 'a' => 'b' ] ) );
 	}
 
 	public function testGetMailDelegatesToMailTwig(): void {
@@ -53,16 +53,16 @@ class ContentProviderTest extends TestCase {
 		 */
 		$instance = $provider->newInstanceWithoutConstructor();
 
-		$webTwig = $this->createMock( Twig_Environment::class);
-		$webTwig->expects($this->once())
-			->method('render')
-			->with('lorem.twig', [ 'c' => 'd' ])
-			->willReturn('more things');
+		$webTwig = $this->createMock( Twig_Environment::class );
+		$webTwig->expects( $this->once() )
+			->method( 'render' )
+			->with( 'lorem.twig', [ 'c' => 'd' ] )
+			->willReturn( 'more things' );
 
 		$web = $provider->getProperty( 'mail' );
 		$web->setAccessible( true );
-		$web->setValue($instance, $webTwig);
+		$web->setValue( $instance, $webTwig );
 
-		$this->assertSame('more things', $instance->getMail('lorem', [ 'c' => 'd' ]));
+		$this->assertSame( 'more things', $instance->getMail( 'lorem', [ 'c' => 'd' ] ) );
 	}
 }

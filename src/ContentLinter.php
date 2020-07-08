@@ -14,11 +14,11 @@ use WMDE\Fundraising\ContentProvider\HtmlPurifier as FunHtmlPurifier;
 
 class ContentLinter extends Command {
 
-	const NAME = 'lint-content';
+	public const NAME = 'lint-content';
 
-	const EXIT_OK = 0;
-	const EXIT_TWIG_ERROR = 1;
-	const EXIT_HTML_ERROR = 2;
+	public const EXIT_OK = 0;
+	public const EXIT_TWIG_ERROR = 1;
+	public const EXIT_HTML_ERROR = 2;
 
 	/**
 	 * @var ContentProvider
@@ -48,10 +48,9 @@ class ContentLinter extends Command {
 	}
 
 	protected function initialize( InputInterface $input, OutputInterface $output ) {
-		$this->contentProvider = new ContentProvider( ['content_path' => $input->getArgument( 'content-path' )] );
+		$this->contentProvider = new ContentProvider( [ 'content_path' => $input->getArgument( 'content-path' ) ] );
 		$this->errOutput = $output instanceof ConsoleOutputInterface ? $output->getErrorOutput() : $output;
 	}
-
 
 	protected function execute( InputInterface $input, OutputInterface $output ) {
 		$contentName = $input->getArgument( 'content' );
@@ -81,7 +80,7 @@ class ContentLinter extends Command {
 		$purifiedContent = $purifier->purify( $content );
 
 		if ( $this->unifyHtml( $content ) !== $this->unifyHtml( $purifiedContent ) ) {
-			$this->showInvalidHtmlErrorMessage( $contentName, $content, $purifiedContent);
+			$this->showInvalidHtmlErrorMessage( $contentName, $content, $purifiedContent );
 			return self::EXIT_HTML_ERROR;
 		}
 

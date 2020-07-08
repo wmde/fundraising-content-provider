@@ -16,9 +16,9 @@ use Twig_Sandbox_SecurityPolicy;
 class ContentProvider {
 
 	private const LEXER_CONFIG = [
-		'tag_comment' => ['{#', '#}'],
-		'tag_block' => ['{%', '%}'],
-		'tag_variable' => ['{$', '$}']
+		'tag_comment' => [ '{#', '#}' ],
+		'tag_block' => [ '{%', '%}' ],
+		'tag_variable' => [ '{$', '$}' ]
 	];
 
 	private const TEMPLATE_FILE_EXTENSION = '.twig';
@@ -50,7 +50,6 @@ class ContentProvider {
 	 * @param array $config Configuration settings
 	 */
 	public function __construct( array $config ) {
-
 		$contentDir = $config['content_path'];
 
 		if ( empty( $config['globals'] ) ) {
@@ -65,14 +64,14 @@ class ContentProvider {
 		try {
 
 			$this->web = new Twig_Environment(
-				new Twig_Loader_Filesystem( [$contentDir . '/web', $contentDir . '/shared'] ),
+				new Twig_Loader_Filesystem( [ $contentDir . '/web', $contentDir . '/shared' ] ),
 				$envConfig
 			);
 			$this->configureEnvironment( $this->web, $config );
 
 			$this->mail = new Twig_Environment(
-				new Twig_Loader_Filesystem( [$contentDir . '/mail', $contentDir . '/shared'] ),
-				array_merge( $envConfig, ['autoescape' => false] )
+				new Twig_Loader_Filesystem( [ $contentDir . '/mail', $contentDir . '/shared' ] ),
+				array_merge( $envConfig, [ 'autoescape' => false ] )
 			);
 			$this->configureEnvironment( $this->mail, $config );
 		} catch ( Exception $exception ) {
@@ -132,13 +131,13 @@ class ContentProvider {
 		$environment->addExtension( new Twig_Extension_Sandbox( $policy, true ) );
 
 		$environment->addFunction( new TwigFunction( 'pluralize', function ( $count, $one, $many, $none = null ): string {
-			if( !$count ) {
+			if ( !$count ) {
 				$count = 0;
 			}
 
 			$none = $none ?? $many;
 
-			switch($count) {
+			switch ( $count ) {
 				case 0:
 					return $none;
 				case 1:
