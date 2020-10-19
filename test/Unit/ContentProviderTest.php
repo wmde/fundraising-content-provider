@@ -1,12 +1,12 @@
 <?php
 
-declare( strict_types=1 );
+declare( strict_types = 1 );
 
 namespace WMDE\Fundraising\ContentProvider\Test\Unit;
 
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
-use Twig_Environment;
+use Twig\Environment;
 use WMDE\Fundraising\ContentProvider\ContentProvider;
 
 /**
@@ -33,7 +33,7 @@ class ContentProviderTest extends TestCase {
 		 */
 		$instance = $provider->newInstanceWithoutConstructor();
 
-		$webTwig = $this->createMock( Twig_Environment::class );
+		$webTwig = $this->createMock( Environment::class );
 		$webTwig->expects( $this->once() )
 			->method( 'render' )
 			->with( 'lorem.twig', [ 'a' => 'b' ] )
@@ -53,7 +53,7 @@ class ContentProviderTest extends TestCase {
 		 */
 		$instance = $provider->newInstanceWithoutConstructor();
 
-		$webTwig = $this->createMock( Twig_Environment::class );
+		$webTwig = $this->createMock( Environment::class );
 		$webTwig->expects( $this->once() )
 			->method( 'render' )
 			->with( 'lorem.twig', [ 'c' => 'd' ] )
