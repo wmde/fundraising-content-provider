@@ -20,13 +20,16 @@ before rendering it into [FundraisingFrontend](https://github.com/wmde/Fundraisi
     vendor/bin/lint_content /contentpath/de_DE --web pages/imprint
 
     # running in a docker container
-    docker run -it --rm -v ~/projects/fundraising-frontend-content/i18n:/contentpath -v "$PWD":/usr/src/myapp -w /usr/src/myapp php:7.1-cli ./bin/lint_content /contentpath/de_DE --web pages/imprint
+    docker run -it --rm -v
+	~/projects/fundraising-frontend-content/i18n:/contentpath -v
+	"$PWD":/usr/src/myapp -w /usr/src/myapp php:8.0-alpine ./bin/lint_content /contentpath/de_DE --web pages/imprint
 
 # Development
 
 ## Run phpunit tests
 
-    docker run -it --rm --user $(id -u):$(id -g) -v "$PWD":/app -w /app php:7.1-cli ./vendor/bin/phpunit
+    docker run -it --rm --user $(id -u):$(id -g) -v "$PWD":/app -w /app
+	php:8.0-alpine ./vendor/bin/phpunit
     
 (you have to have docker installed for this to work)
 
