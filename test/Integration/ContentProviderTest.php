@@ -114,8 +114,8 @@ class ContentProviderTest extends TestCase {
 	}
 
 	public function testMissingContentPathSetupCausesNotice(): void {
-		$this->expectNotice();
-		$this->expectExceptionMessageMatches( '/Undefined index: content_path/' );
+		$this->expectWarning();
+		$this->expectExceptionMessageMatches( '/Undefined array key "content_path"/' );
 
 		new ContentProvider( [] );
 	}

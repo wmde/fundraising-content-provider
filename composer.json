@@ -9,7 +9,7 @@
         "symfony/console": "^5.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "~8.0",
+        "phpunit/phpunit": "~9.5",
         "wmde/fundraising-phpcs": "~5.0",
         "mikey179/vfsstream": "^1.6"
     },
