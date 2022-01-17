@@ -4,8 +4,8 @@ declare( strict_types=1 );
 
 namespace WMDE\Fundraising\ContentProvider;
 
-use HTMLPurifier_Config;
 use HTMLPurifier as OriginalHTMLPurifier;
+use HTMLPurifier_Config;
 
 class HtmlPurifier {
 

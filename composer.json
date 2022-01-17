@@ -3,14 +3,14 @@
     "description": "WMDE fundraising application content provider and filter",
     "license": "GPL-2.0+",
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.0",
         "ezyang/htmlpurifier": "^4.9",
         "twig/twig": "~3.0",
-        "symfony/console": "^5.1"
+        "symfony/console": "^5.4"
     },
     "require-dev": {
-        "phpunit/phpunit": "~8.0",
-        "wmde/fundraising-phpcs": "~1.0",
+        "phpunit/phpunit": "~9.5",
+        "wmde/fundraising-phpcs": "~5.0",
         "mikey179/vfsstream": "^1.6"
     },
     "repositories": [

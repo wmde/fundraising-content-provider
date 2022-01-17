@@ -90,7 +90,7 @@ class ContentProvider {
 		$environment->addFunction(
 			new TwigFunction(
 				'pluralize',
-				function ( $count, $one, $many, $none = null ): string {
+				static function ( $count, $one, $many, $none = null ): string {
 					if ( !$count ) {
 						$count = 0;
 					}
