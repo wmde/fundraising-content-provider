@@ -20,15 +20,9 @@ class ContentLinter extends Command {
 	public const EXIT_TWIG_ERROR = 1;
 	public const EXIT_HTML_ERROR = 2;
 
-	/**
-	 * @var ContentProvider
-	 */
-	private $contentProvider;
+	private TwigContentProvider $contentProvider;
 
-	/**
-	 * @var OutputInterface
-	 */
-	private $errOutput;
+	private OutputInterface $errOutput;
 
 	protected function configure() {
 		$this->setName( self::NAME )
@@ -48,7 +42,7 @@ class ContentLinter extends Command {
 	}
 
 	protected function initialize( InputInterface $input, OutputInterface $output ) {
-		$this->contentProvider = new ContentProvider( [ 'content_path' => $input->getArgument( 'content-path' ) ] );
+		$this->contentProvider = TwigContentProviderFactory::createContentProvider( new TwigContentProviderConfig( $input->getArgument( 'content-path' ) ) );
 		$this->errOutput = $output instanceof ConsoleOutputInterface ? $output->getErrorOutput() : $output;
 	}
 

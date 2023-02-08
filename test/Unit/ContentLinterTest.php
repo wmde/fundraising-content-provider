@@ -14,10 +14,7 @@ use WMDE\Fundraising\ContentProvider\ContentLinter;
  */
 class ContentLinterTest extends TestCase {
 
-	/**
-	 * @var CommandTester
-	 */
-	protected $commandTester;
+	protected CommandTester $commandTester;
 
 	protected function setUp(): void {
 		$linter = new ContentLinter();
