@@ -7,13 +7,13 @@ namespace WMDE\Fundraising\ContentProvider\Test\Integration;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 use WMDE\Fundraising\ContentProvider\ContentException;
-use WMDE\Fundraising\ContentProvider\ContentProvider;
-use WMDE\Fundraising\ContentProvider\SetupException;
+use WMDE\Fundraising\ContentProvider\TwigContentProviderConfig;
+use WMDE\Fundraising\ContentProvider\TwigContentProviderFactory;
 
 /**
- * @covers \WMDE\Fundraising\ContentProvider\ContentProvider
+ * @covers \WMDE\Fundraising\ContentProvider\TwigContentProvider
  */
-class ContentProviderTest extends TestCase {
+class TwigContentProviderTest extends TestCase {
 
 	public function testTwigInstancesUseLexerConfig() {
 		$content = vfsStream::setup( 'content', null, [
@@ -28,9 +28,7 @@ class ContentProviderTest extends TestCase {
 			],
 		] );
 
-		$provider = new ContentProvider( [
-			'content_path' => $content->url(),
-		] );
+		$provider = TwigContentProviderFactory::createContentProvider( new TwigContentProviderConfig( $content->url() ) );
 
 		$this->assertSame( 'a lorem', $provider->getWeb( 'a', [ 'variable' => 'lorem' ] ) );
 		$this->assertSame( 'c ipsum', $provider->getWeb( 'c', [ 'variable' => 'ipsum' ] ) );
@@ -55,9 +53,7 @@ class ContentProviderTest extends TestCase {
 			],
 		] );
 
-		$provider = new ContentProvider( [
-			'content_path' => $content->url(),
-		] );
+		$provider = TwigContentProviderFactory::createContentProvider( new TwigContentProviderConfig( $content->url() ) );
 
 		$this->assertSame(
 			'<p>lorem one.</p>',
@@ -99,32 +95,13 @@ class ContentProviderTest extends TestCase {
 			'shared' => [],
 		] );
 
-		$provider = new ContentProvider( [
-			'content_path' => $content->url(),
-			'globals' => [
-				'variable' => 'globalvalue'
-			]
-		] );
+		$provider = TwigContentProviderFactory::createContentProvider( new TwigContentProviderConfig( $content->url(), null, [ 'variable' => 'globalvalue' ] ) );
 
 		$this->assertSame( 'globalvalue', $provider->getWeb( 'myhtml' ) );
 		$this->assertSame( 'local', $provider->getWeb( 'myhtml', [ 'variable' => 'local' ] ) );
 
 		$this->assertSame( 'globalvalue', $provider->getMail( 'myplaintext' ) );
 		$this->assertSame( 'local', $provider->getMail( 'myplaintext', [ 'variable' => 'local' ] ) );
-	}
-
-	public function testMissingContentPathSetupCausesNotice(): void {
-		$this->expectWarning();
-		$this->expectExceptionMessageMatches( '/Undefined array key "content_path"/' );
-
-		new ContentProvider( [] );
-	}
-
-	public function testBadSetupCausesSetupException(): void {
-		$this->expectException( SetupException::class );
-		$this->expectExceptionMessageMatches( '/An exception occurred setting up the ContentProvider./' );
-
-		new ContentProvider( [ 'content_path' => '/missing/link' ] );
 	}
 
 	public function testMissingWebTemplateCausesContentException(): void {
@@ -136,9 +113,7 @@ class ContentProviderTest extends TestCase {
 			'shared' => [],
 		] );
 
-		$provider = new ContentProvider( [
-			'content_path' => $content->url()
-		] );
+		$provider = TwigContentProviderFactory::createContentProvider( new TwigContentProviderConfig( $content->url() ) );
 
 		$provider->getWeb( 'not_there' );
 	}
@@ -152,9 +127,7 @@ class ContentProviderTest extends TestCase {
 			'shared' => [],
 		] );
 
-		$provider = new ContentProvider( [
-			'content_path' => $content->url()
-		] );
+		$provider = TwigContentProviderFactory::createContentProvider( new TwigContentProviderConfig( $content->url() ) );
 
 		$provider->getMail( 'not_there' );
 	}
@@ -168,9 +141,7 @@ class ContentProviderTest extends TestCase {
 			'shared' => [],
 		] );
 
-		$provider = new ContentProvider( [
-			'content_path' => $content->url()
-		] );
+		$provider = TwigContentProviderFactory::createContentProvider( new TwigContentProviderConfig( $content->url() ) );
 
 		$this->assertSame(
 			'prefixsuffix',
@@ -187,13 +158,21 @@ class ContentProviderTest extends TestCase {
 			'shared' => [],
 		] );
 
-		$provider = new ContentProvider( [
-			'content_path' => $content->url(),
-		] );
+		$provider = TwigContentProviderFactory::createContentProvider( new TwigContentProviderConfig( $content->url() ) );
 
 		$this->assertSame(
 			'<section><div>not purified!<brokentag></div></section>',
 			$provider->getWeb( 'fancy_html' )
 		);
+	}
+
+	public function testParsePluralizeReturnsCorrectValue(): void {
+		$contentProvider = TwigContentProviderFactory::createContentProvider( new TwigContentProviderConfig( __DIR__ . '/../data' ) );
+
+		$this->assertEquals( 'None', $contentProvider->getWeb( 'PluralizeFile', [ 'count' => 0 ] ) );
+		$this->assertEquals( 'One', $contentProvider->getWeb( 'PluralizeFile', [ 'count' => 1 ] ) );
+		$this->assertEquals( 'Many', $contentProvider->getWeb( 'PluralizeFile', [ 'count' => 9 ] ) );
+		$this->assertEquals( 'None', $contentProvider->getWeb( 'PluralizeFile', [ 'count' => null ] ) );
+		$this->assertEquals( 'None', $contentProvider->getWeb( 'PluralizeFile', [ 'count' => false ] ) );
 	}
 }
