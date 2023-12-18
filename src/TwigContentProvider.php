@@ -30,6 +30,9 @@ class TwigContentProvider implements ContentProvider {
 	}
 
 	public function getMail( string $name, array $context = [] ): string {
-		return $this->render( $this->mail, $name, $context );
+		return htmlspecialchars_decode(
+			$this->render( $this->mail, $name, $context ),
+			ENT_QUOTES | ENT_HTML5
+		);
 	}
 }
