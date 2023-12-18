@@ -166,6 +166,23 @@ class TwigContentProviderTest extends TestCase {
 		);
 	}
 
+	public function testInMailTemplatesEscapedEntitiesAreConvertedBack(): void {
+		$content = vfsStream::setup( 'content', null, [
+			'web' => [],
+			'mail' => [
+				'fancy_plaintext.twig' => 'This is a &quot;fancy&quot; &lt;plaintext&gt; {$ variable $}.',
+			],
+			'shared' => [],
+		] );
+
+		$provider = TwigContentProviderFactory::createContentProvider( new TwigContentProviderConfig( $content->url() ) );
+
+		$this->assertSame(
+			'This is a "fancy" <plaintext> &.',
+			$provider->getMail( 'fancy_plaintext', [ 'variable' => '&' ] )
+		);
+	}
+
 	public function testParsePluralizeReturnsCorrectValue(): void {
 		$contentProvider = TwigContentProviderFactory::createContentProvider( new TwigContentProviderConfig( __DIR__ . '/../data' ) );
 

@@ -38,4 +38,15 @@ class TwigContentProviderTest extends TestCase {
 
 		$this->assertSame( 'Thank you', $provider->getMail( 'ipsum', [ 'c' => 4 ] ) );
 	}
+
+	public function testGetMailConvertsHtmlEntitiesToCharacters(): void {
+		$webTwig = $this->createStub( Environment::class );
+		$mailerTwig = $this->createStub( Environment::class );
+		$mailerTwig->method( 'render' )
+			->willReturn( '&amp; &lt; &gt; &quot; &apos; &uuml;' );
+
+		$provider = new TwigContentProvider( $webTwig, $mailerTwig );
+
+		$this->assertSame( '& < > " \' &uuml;', $provider->getMail( 'ipsum' ) );
+	}
 }
