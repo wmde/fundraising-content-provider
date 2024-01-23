@@ -41,12 +41,12 @@ class ContentLinter extends Command {
 			->addArgument( 'content', InputArgument::REQUIRED, 'Name of content file' );
 	}
 
-	protected function initialize( InputInterface $input, OutputInterface $output ) {
+	protected function initialize( InputInterface $input, OutputInterface $output ): void {
 		$this->contentProvider = TwigContentProviderFactory::createContentProvider( new TwigContentProviderConfig( $input->getArgument( 'content-path' ) ) );
 		$this->errOutput = $output instanceof ConsoleOutputInterface ? $output->getErrorOutput() : $output;
 	}
 
-	protected function execute( InputInterface $input, OutputInterface $output ) {
+	protected function execute( InputInterface $input, OutputInterface $output ): int {
 		$contentName = $input->getArgument( 'content' );
 
 		if ( $input->getOption( 'web' ) ) {

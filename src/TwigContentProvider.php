@@ -11,7 +11,7 @@ class TwigContentProvider implements ContentProvider {
 
 	private const TEMPLATE_FILE_EXTENSION = '.twig';
 
-	public function __construct( private readonly Environment $web,	private readonly  Environment $mail ) {
+	public function __construct( private readonly Environment $web,	private readonly Environment $mail ) {
 	}
 
 	public function getWeb( string $name, array $context = [] ): string {
@@ -21,8 +21,7 @@ class TwigContentProvider implements ContentProvider {
 	private function render( Environment $environment, string $name, array $context = [] ): string {
 		try {
 			$content = $environment->render( $name . self::TEMPLATE_FILE_EXTENSION, $context );
-		}
-		catch ( Error $exception ) {
+		} catch ( Error $exception ) {
 			throw new ContentException( "An exception occurred rendering '$name'", 0, $exception );
 		}
 
