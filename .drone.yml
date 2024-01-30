@@ -1,0 +1,41 @@
+kind: pipeline
+type: docker
+name: default
+steps:
+  - name: restore-cache
+    image: drillster/drone-volume-cache
+    settings:
+      restore: true
+      mount:
+        - ./vendor
+    volumes:
+      - name: cache
+        path: /cache
+  
+  - name: build
+    # TODO Create a dedicated CI image?
+    image: registry.gitlab.com/fun-tech/fundraising-frontend-docker:composer
+    environment:
+      COMPOSER_CACHE_DIR: /composer_cache
+    volumes:
+      - name: cache
+        path: /composer_cache
+    commands:
+      # TODO add GITHUB_TOKEN from drone org secret and initialize here
+      - composer install --prefer-dist --no-progress --no-interaction
+      - composer ci
+ 
+  - name: rebuild-cache
+    image: drillster/drone-volume-cache
+    settings:
+      rebuild: true
+      mount:
+        - ./vendor
+    volumes:
+      - name: cache
+        path: /cache
+
+volumes:
+  - name: cache
+    host:
+      path: /tmp/drone/cache
