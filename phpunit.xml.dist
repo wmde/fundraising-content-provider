@@ -11,6 +11,7 @@
 	stopOnSkipped="false"
 	cacheDirectory=".phpunit.cache"
 	backupStaticProperties="false"
+	requireCoverageMetadata="true"
 >
   <coverage includeUncoveredFiles="true"/>
   <testsuites>
