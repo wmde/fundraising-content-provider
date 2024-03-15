@@ -2,19 +2,9 @@ kind: pipeline
 type: docker
 name: default
 steps:
-  - name: restore-cache
-    image: drillster/drone-volume-cache
-    settings:
-      restore: true
-      mount:
-        - ./vendor
-    volumes:
-      - name: cache
-        path: /cache
   
   - name: build
-    # TODO Create a dedicated CI image?
-    image: registry.gitlab.com/fun-tech/fundraising-frontend-docker:composer
+    image: registry.gitlab.com/fun-tech/fundraising-frontend-docker:ci
     environment:
       COMPOSER_CACHE_DIR: /composer_cache
       GITHUB_TOKEN: 
@@ -27,16 +17,6 @@ steps:
       - composer config -g github-oauth.github.com "$GITHUB_TOKEN"
       - composer install --prefer-dist --no-progress --no-interaction
       - composer ci
- 
-  - name: rebuild-cache
-    image: drillster/drone-volume-cache
-    settings:
-      rebuild: true
-      mount:
-        - ./vendor
-    volumes:
-      - name: cache
-        path: /cache
 
 volumes:
   - name: cache
