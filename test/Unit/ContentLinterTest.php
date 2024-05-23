@@ -10,7 +10,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 use WMDE\Fundraising\ContentProvider\ContentLinter;
 
 /**
- * @covers ContentLinter
+ * @covers \WMDE\Fundraising\ContentProvider\ContentLinter
  */
 class ContentLinterTest extends TestCase {
 
