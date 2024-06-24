@@ -16,7 +16,7 @@
   <coverage includeUncoveredFiles="true"/>
   <testsuites>
     <testsuite name="unit">
-      <directory>test/</directory>
+      <directory>tests/</directory>
     </testsuite>
   </testsuites>
   <php>

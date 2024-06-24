@@ -3,15 +3,14 @@ declare( strict_types=1 );
 
 namespace WMDE\Fundraising\ContentProvider\Test\Unit;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Tester\CommandTester;
 use WMDE\Fundraising\ContentProvider\ContentLinter;
 
-/**
- * @covers \WMDE\Fundraising\ContentProvider\ContentLinter
- */
+#[CoversClass( ContentLinter::class )]
 class ContentLinterTest extends TestCase {
 
 	protected CommandTester $commandTester;

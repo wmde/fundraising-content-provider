@@ -4,12 +4,11 @@ declare( strict_types=1 );
 
 namespace WMDE\Fundraising\ContentProvider\Test\Integration;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use WMDE\Fundraising\ContentProvider\HtmlPurifier;
 
-/**
- * @covers \WMDE\Fundraising\ContentProvider\HtmlPurifier
- */
+#[CoversClass( HtmlPurifier::class )]
 class HtmlPurifierTest extends TestCase {
 
 	/**
@@ -38,7 +37,7 @@ amet
 
 <a href="http://wikimedia.de">ordinary link</a>',
 			$this->sut->purify(
-				'<h1>my <u>test</u> <em>site</em></h1>
+				'<h1>my <u>tests</u> <em>site</em></h1>
 <p>lorem</p>
 <ul><li>item <strong>1</strong></li>
 </ul><img src="/logo.png" alt="wikimedia" />

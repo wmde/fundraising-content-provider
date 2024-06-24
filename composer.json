@@ -27,7 +27,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "WMDE\\Fundraising\\ContentProvider\\Test\\": "test/"
+            "WMDE\\Fundraising\\ContentProvider\\Test\\": "tests/"
         }
     },
     "scripts": {
@@ -39,14 +39,14 @@
             "@phpcs"
         ],
         "ci": [
-            "@test",
+            "@tests",
             "@cs"
         ],
         "phpcs": [
-            "vendor/bin/phpcs src/ test/ --standard=phpcs.xml --extensions=php -sp"
+            "vendor/bin/phpcs src/ tests/ --standard=phpcs.xml --extensions=php -sp"
         ],
         "phpcbf": [
-            "vendor/bin/phpcbf src/ test/ --standard=phpcs.xml --extensions=php -sp"
+            "vendor/bin/phpcbf src/ tests/ --standard=phpcs.xml --extensions=php -sp"
         ]
     },
     "bin": [

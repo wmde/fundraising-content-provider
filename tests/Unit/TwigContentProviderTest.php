@@ -4,13 +4,12 @@ declare( strict_types = 1 );
 
 namespace WMDE\Fundraising\ContentProvider\Test\Unit;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 use WMDE\Fundraising\ContentProvider\TwigContentProvider;
 
-/**
- * @covers \WMDE\Fundraising\ContentProvider\TwigContentProvider
- */
+#[CoversClass( TwigContentProvider::class )]
 class TwigContentProviderTest extends TestCase {
 
 	public function testGetWebDelegatesToWebTwig(): void {
