@@ -5,14 +5,14 @@ declare( strict_types=1 );
 namespace WMDE\Fundraising\ContentProvider\Test\Integration;
 
 use org\bovigo\vfs\vfsStream;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use WMDE\Fundraising\ContentProvider\ContentException;
+use WMDE\Fundraising\ContentProvider\TwigContentProvider;
 use WMDE\Fundraising\ContentProvider\TwigContentProviderConfig;
 use WMDE\Fundraising\ContentProvider\TwigContentProviderFactory;
 
-/**
- * @covers \WMDE\Fundraising\ContentProvider\TwigContentProvider
- */
+#[CoversClass( TwigContentProvider::class )]
 class TwigContentProviderTest extends TestCase {
 
 	public function testTwigInstancesUseLexerConfig() {

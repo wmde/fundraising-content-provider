@@ -9,8 +9,8 @@
         "symfony/console": "^6.0 || ^7.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "~10.0",
-        "wmde/fundraising-phpcs": "~10.0",
+        "phpunit/phpunit": "~11.0",
+        "wmde/fundraising-phpcs": "~10.1",
         "mikey179/vfsstream": "^1.6"
     },
     "repositories": [
@@ -27,7 +27,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "WMDE\\Fundraising\\ContentProvider\\Test\\": "test/"
+            "WMDE\\Fundraising\\ContentProvider\\Test\\": "tests/"
         }
     },
     "scripts": {
@@ -39,14 +39,14 @@
             "@phpcs"
         ],
         "ci": [
-            "@test",
+            "@tests",
             "@cs"
         ],
         "phpcs": [
-            "vendor/bin/phpcs src/ test/ --standard=phpcs.xml --extensions=php -sp"
+            "vendor/bin/phpcs src/ tests/ --standard=phpcs.xml --extensions=php -sp"
         ],
         "phpcbf": [
-            "vendor/bin/phpcbf src/ test/ --standard=phpcs.xml --extensions=php -sp"
+            "vendor/bin/phpcbf src/ tests/ --standard=phpcs.xml --extensions=php -sp"
         ]
     },
     "bin": [
