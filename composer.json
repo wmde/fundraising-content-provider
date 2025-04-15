@@ -3,7 +3,7 @@
     "description": "WMDE fundraising application content provider and filter",
     "license": "GPL-2.0-or-later",
     "require": {
-        "php": ">=8.2",
+        "php": ">=8.4",
         "ezyang/htmlpurifier": "^4.9",
         "twig/twig": "~3.4",
         "symfony/console": "^6.0 || ^7.0"
