@@ -18,7 +18,7 @@ class ContentLinterTest extends TestCase {
 	protected function setUp(): void {
 		$linter = new ContentLinter();
 		$app = new Application();
-		$app->add( $linter );
+		$app->addCommand( $linter );
 		$this->commandTester = new CommandTester( $linter );
 	}
 
