@@ -24,7 +24,7 @@ class ContentLinter extends Command {
 
 	private OutputInterface $errOutput;
 
-	protected function configure() {
+	protected function configure(): void {
 		$this->setName( self::NAME )
 			->setDescription( 'Check content for validity' )
 			->addOption(
